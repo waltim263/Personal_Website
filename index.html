@@ -35,7 +35,7 @@ nav ul a:hover{color:var(--ink);text-decoration:none}
 /* hero */
 header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
 .grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%)}
-.hero .wrap{position:relative;padding:96px 24px 80px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end}
+.hero .wrap{position:relative;padding:96px 24px 80px}
 .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 h1{font-size:clamp(40px,6vw,68px);line-height:1.02;font-weight:700;letter-spacing:-.02em;margin:14px 0 18px}
 .hero p.lede{font-size:19px;color:var(--muted);max-width:560px}
@@ -158,8 +158,8 @@ figure.overview img{height:auto;max-height:none}
 /* contact */
 .contact{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
 .contact h2{font-size:clamp(28px,4vw,40px)}
-.contact .rows{font-family:var(--mono);font-size:14px;display:grid;gap:8px}
-.contact .rows span{color:var(--dim);display:inline-block;width:80px}
+.rows{font-family:var(--mono);font-size:14px;display:grid;gap:8px}
+.rows span{color:var(--dim);display:inline-block;width:80px}
 footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
 
 /* lightbox */
@@ -207,17 +207,6 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
         <a class="btn" href="https://www.linkedin.com/in/timothy-walters-55aa29164/">LinkedIn</a>
         <a class="btn" href="#contact">Contact</a>
       </div>
-    </div>
-    <div class="telemetry" aria-label="Quick facts">
-      <div class="hd"><span>status</span><i>nominal</i></div>
-      <dl>
-        <dt>base</dt><dd>Hanover, NH · from Missoula, MT</dd>
-        <dt>degree</dt><dd>B.E. Electrical Eng. <em>'27</em></dd>
-        <dt>lab</dt><dd>Lynch Rocket Lab (NASA GNEISS)</dd>
-        <dt>club</dt><dd>Dartmouth Rocketry, avionics lead</dd>
-        <dt>stack</dt><dd>C · VHDL · Python · STM32 · Zynq</dd>
-        <dt>focus</dt><dd>RF, avionics, FPGA DSP</dd>
-      </dl>
     </div>
   </div>
 </header>
@@ -528,8 +517,8 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
 </div></section>
 
 <!-- CONTACT -->
-<section id="contact" style="border-bottom:0"><div class="wrap contact">
-  <div><div class="tag">Open to opportunities</div><h2>Let's build something that flies.</h2></div>
+<section id="contact" style="border-bottom:0"><div class="wrap">
+  <div class="sec-hd"><span class="n">05</span><h2>Contact</h2></div>
   <div class="rows">
     <div><span>email</span><a href="mailto:timothy.r.walters.27@dartmouth.edu">timothy.r.walters.27@dartmouth.edu</a></div>
     <div><span>github</span><a href="https://github.com/waltim263">github.com/waltim263</a></div>
