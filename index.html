@@ -73,6 +73,13 @@ h2{font-size:30px;font-weight:600;letter-spacing:-.01em}
 .status.live{color:var(--accent);border-color:rgba(255,179,71,.4)}
 
 
+/* filters */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{font:500 12.5px var(--mono);background:transparent;color:var(--muted);border:1px solid var(--line2);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button:hover{color:var(--ink);border-color:var(--dim)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters button i{font-style:normal;opacity:.6;margin-left:6px}
+
 /* project */
 .proj{display:grid;grid-template-columns:300px 1fr;gap:32px;padding:36px 0;border-top:1px solid var(--line)}
 .proj:first-of-type{border-top:0}
@@ -256,6 +263,8 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
 
 
   <!-- TinyML -->
+  <div class="filters" role="group" aria-label="Filter projects by category"></div>
+
   <article class="proj">
     <div class="meta">
       <span class="course">ENGS 128 · Advanced Digital Design</span>
@@ -534,6 +543,23 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
 <div id="lb" role="dialog" aria-modal="true"><img alt=""><p></p></div>
 
 <script>
+// category filter buttons, built from each project's label
+(function(){
+  const bar=document.querySelector('.filters');
+  const items=[...document.querySelectorAll('.proj,.mini')];
+  const cats=[];
+  items.forEach(el=>{const c=el.querySelector('.cat').textContent.trim(); el.dataset.cat=c; if(!cats.includes(c)) cats.push(c);});
+  const mk=(label,val,n)=>{const b=document.createElement('button');b.type='button';b.dataset.f=val;b.setAttribute('aria-pressed',val==='all');b.textContent=label;bar.appendChild(b);return b;};
+  mk('All','all',items.length);
+  cats.forEach(c=>mk(c,c,items.filter(e=>e.dataset.cat===c).length));
+  const minis=document.querySelector('.minis');
+  bar.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    bar.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    items.forEach(el=>el.style.display=(b.dataset.f==='all'||el.dataset.cat===b.dataset.f)?'':'none');
+    minis.style.display=[...minis.children].some(c=>c.style.display!=='none')?'':'none';
+  });
+})();
 // circuit block tabs
 document.querySelectorAll('.blocks').forEach(bl=>{
   const tabs=bl.querySelectorAll('[role=tab]'), panels=bl.querySelectorAll('[role=tabpanel]');
