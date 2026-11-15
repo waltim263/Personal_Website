@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timothy Walters — Electrical Engineering Portfolio</title>
+<meta name="description" content="Engineering portfolio of Timothy Walters, Dartmouth Thayer EE: avionics, FPGA, embedded systems, analog design and controls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1118; --bg2:#0f1721; --panel:#121c27; --line:#1f2c3a; --line2:#2a3a4c;
+  --ink:#e6edf3; --muted:#93a4b5; --dim:#62758a;
+  --accent:#ffb347; --accent2:#5ad1c4; --warn:#ff7a6b;
+  --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'IBM Plex Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(11,17,24,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+nav .id{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.04em}
+nav .id b{color:var(--ink);font-weight:500}
+nav ul{display:flex;gap:22px;list-style:none;font-size:14px}
+nav ul a{color:var(--muted)}
+nav ul a:hover{color:var(--ink);text-decoration:none}
+
+/* hero */
+header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%)}
+.hero .wrap{position:relative;padding:96px 24px 80px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end}
+.tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(40px,6vw,68px);line-height:1.02;font-weight:700;letter-spacing:-.02em;margin:14px 0 18px}
+.hero p.lede{font-size:19px;color:var(--muted);max-width:560px}
+.hero p.lede strong{color:var(--ink);font-weight:500}
+.cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13px;padding:10px 16px;border:1px solid var(--line2);border-radius:6px;color:var(--ink);background:var(--panel)}
+.btn:hover{border-color:var(--accent);text-decoration:none}
+.btn.primary{background:var(--accent);color:#111;border-color:var(--accent);font-weight:500}
+.telemetry{border:1px solid var(--line2);border-radius:10px;background:rgba(18,28,39,.85);font-family:var(--mono);font-size:13px;overflow:hidden}
+.telemetry .hd{display:flex;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);color:var(--dim);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.telemetry .hd i{font-style:normal;color:var(--accent2)}
+.telemetry .hd i:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent2);margin-right:6px;animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.telemetry dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;padding:14px}
+.telemetry dt{color:var(--dim)}
+.telemetry dd{color:var(--ink)}
+.telemetry dd em{font-style:normal;color:var(--accent)}
+
+/* sections */
+section{padding:84px 0;border-bottom:1px solid var(--line)}
+.sec-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:36px}
+.sec-hd .n{font-family:var(--mono);color:var(--accent);font-size:13px}
+h2{font-size:30px;font-weight:600;letter-spacing:-.01em}
+.sec-hd p{color:var(--muted);margin-left:auto;font-size:14px;max-width:420px;text-align:right}
+
+/* featured */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fcard{border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:28px}
+.fcard .k{font-family:var(--mono);font-size:12px;color:var(--accent2);letter-spacing:.08em;text-transform:uppercase}
+.fcard h3{font-size:22px;margin:8px 0 12px;line-height:1.25}
+.fcard p{color:var(--muted);font-size:15px}
+.fcard ul{margin:14px 0 0 18px;color:var(--muted);font-size:15px}
+.fcard ul li{margin:4px 0}
+.status{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:4px;border:1px solid var(--line2);color:var(--muted);margin-left:8px;vertical-align:middle;letter-spacing:.04em}
+.status.live{color:var(--accent);border-color:rgba(255,179,71,.4)}
+
+/* filters */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{font:500 13px var(--mono);background:transparent;color:var(--muted);border:1px solid var(--line2);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* project */
+.proj{display:grid;grid-template-columns:300px 1fr;gap:32px;padding:36px 0;border-top:1px solid var(--line)}
+.proj:first-of-type{border-top:0}
+.proj.hide{display:none}
+.proj .meta{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.proj .meta .course{color:var(--accent);display:block;margin-bottom:6px;letter-spacing:.04em}
+.proj .meta div{margin-top:14px}
+.proj .meta b{color:var(--muted);font-weight:500;display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:4px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.proj h3{font-size:24px;line-height:1.25;margin-bottom:10px}
+.proj p{color:var(--muted)}
+.proj p+p{margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:20px 0}
+.stat{background:var(--bg2);padding:12px 14px}
+.stat .v{font-family:var(--mono);font-size:19px;color:var(--ink)}
+.stat .l{font-size:12px;color:var(--dim);line-height:1.35;margin-top:2px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}
+figure{background:#fff;border-radius:8px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in}
+figure.dark{background:#000}
+figure img{display:block;width:100%;height:170px;object-fit:contain}
+figure.cover img{object-fit:cover}
+.proj > div > figure{margin-top:18px}
+.proj > div > figure img{height:auto;max-height:420px}
+figcaption{font-family:var(--mono);font-size:11px;color:var(--dim);background:var(--bg2);padding:7px 10px;border-top:1px solid var(--line)}
+details{margin-top:16px;border:1px solid var(--line);border-radius:8px;background:var(--bg2)}
+summary{cursor:pointer;padding:11px 14px;font-family:var(--mono);font-size:13px;color:var(--ink);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"+ ";color:var(--accent)}
+details[open] summary:before{content:"− "}
+details .body{padding:2px 16px 16px;color:var(--muted);font-size:15px}
+details .body ul{margin-left:18px}
+details .body li{margin:6px 0}
+details .body h4{color:var(--ink);font-size:14px;margin:14px 0 4px;font-weight:600}
+code{font-family:var(--mono);font-size:.88em;background:var(--panel);border:1px solid var(--line);padding:1px 5px;border-radius:4px;color:var(--ink)}
+.links{margin-top:14px;font-family:var(--mono);font-size:13px;display:flex;gap:18px;flex-wrap:wrap}
+
+/* small cards */
+.minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:36px}
+.mini{border:1px solid var(--line);border-radius:10px;padding:22px;background:var(--bg2)}
+.mini h4{font-size:17px;margin:6px 0 8px}
+.mini p{color:var(--muted);font-size:14.5px}
+
+/* experience */
+.xp{display:grid;grid-template-columns:200px 1fr;gap:12px 32px}
+.xp .when{font-family:var(--mono);font-size:13px;color:var(--dim);padding-top:3px}
+.xp .what{padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.xp .what:last-child{border-bottom:0}
+.xp h3{font-size:18px}
+.xp h3 span{color:var(--muted);font-weight:400}
+.xp ul{margin:8px 0 0 18px;color:var(--muted);font-size:15px}
+.xp li{margin:4px 0}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.skill{border:1px solid var(--line);border-radius:10px;padding:20px;background:var(--bg2)}
+.skill h4{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:500}
+
+/* contact */
+.contact{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.contact h2{font-size:clamp(28px,4vw,40px)}
+.contact .rows{font-family:var(--mono);font-size:14px;display:grid;gap:8px}
+.contact .rows span{color:var(--dim);display:inline-block;width:80px}
+footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
+
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(5,8,12,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:32px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:85vh;background:#fff;border-radius:6px}
+#lb p{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;padding-top:64px}
+  .feature{grid-template-columns:1fr}
+  .proj{grid-template-columns:1fr;gap:18px}
+  .xp{grid-template-columns:1fr}
+  .xp .when{padding-top:0}
+  .sec-hd{flex-wrap:wrap}.sec-hd p{margin-left:0;text-align:left}
+  nav ul{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="id"><b>T.WALTERS</b> // EE · AVIONICS</div>
+  <ul>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <div>
+      <div class="tag">Electrical Engineering · Avionics &amp; Space Systems</div>
+      <h1>Timothy Walters</h1>
+      <p class="lede">B.E. candidate at <strong>Dartmouth's Thayer School of Engineering</strong> (June 2027). I build hardware that has to work outside the lab, from sounding-rocket telemetry receivers at NASA Wallops to FPGA signal chains, embedded controllers, and analog front ends.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">View projects →</a>
+        <a class="btn" href="https://github.com/waltim263">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/timothy-walters-55aa29164/">LinkedIn</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="telemetry" aria-label="Quick facts">
+      <div class="hd"><span>status</span><i>nominal</i></div>
+      <dl>
+        <dt>base</dt><dd>Hanover, NH · from Missoula, MT</dd>
+        <dt>degree</dt><dd>B.E. Electrical Eng. <em>'27</em></dd>
+        <dt>lab</dt><dd>Lynch Rocket Lab (NASA GNEISS)</dd>
+        <dt>club</dt><dd>Dartmouth Rocketry, avionics lead</dd>
+        <dt>stack</dt><dd>C · VHDL · Python · STM32 · Zynq</dd>
+        <dt>focus</dt><dd>RF, avionics, FPGA DSP</dd>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<!-- RESEARCH -->
+<section id="research"><div class="wrap">
+  <div class="sec-hd"><span class="n">01</span><h2>Research &amp; flight hardware</h2><p>Work tied to real launches and real payloads.</p></div>
+  <div class="feature">
+    <article class="fcard">
+      <div class="k">Lynch Rocket Lab · NASA GNEISS</div>
+      <h3>12-node ground receiver network for ionospheric TEC</h3>
+      <p>I designed and deployed a distributed Raspberry Pi receiver network to record 165 MHz beacon transmissions from the GNEISS sounding rockets. Measuring the signal's phase shift across 12 sites gives the total electron content (TEC) along each rocket-to-ground path, which lets the team map the structure of the ionosphere.</p>
+      <ul>
+        <li>Cross-dipole antennas feeding SDRplay RSPduo receivers, demodulated in GNU Radio on Linux</li>
+        <li>Python automation for scheduled capture, file management, and data storage at every node</li>
+        <li>A fleet-control tool that starts and stops capture, pushes scripts, and pulls data from every station over SSH, from one terminal</li>
+        <li>A Raspberry Pi Zero 2 W test beacon: a GNU Radio flowgraph keys a 151.8 MHz transmission from a GPIO trigger and starts on boot under systemd, so the network can be checked end to end without a rocket</li>
+        <li>Field integration at NASA Wallops Flight Facility: instrumentation install, harness checks, vibe and spin testing, troubleshooting</li>
+        <li>Assembled and tested custom PCBs that capture the rocket instrumentation data</li>
+      </ul>
+      <div class="links"><a href="https://github.com/waltim263/rpi-zero-2w-setup">→ Test-beacon repo</a></div>
+    </article>
+    <article class="fcard">
+      <div class="k">Dartmouth Student Rocketry <span class="status live">in progress</span></div>
+      <h3>STM32 avionics payload for a supersonic rocket</h3>
+      <p>As a founding member and avionics team lead, I'm designing a custom STM32 flight computer PCB in KiCad that measures and logs the full flight and sends it to the ground. The firmware is already running on a NUCLEO-F446RE prototype.</p>
+      <ul>
+        <li><b>Sensors:</b> BNO085 IMU (orientation quaternion, acceleration, angular rate) and BMP388 barometer, both on SPI. Altitude is measured relative to a ground pressure averaged at boot.</li>
+        <li><b>Downlink:</b> RFM95 LoRa radio at 915 MHz. Each packet is a packed 35-byte telemetry frame in fixed-point formats, with a compile-time size check that keeps the firmware and the Python ground decoder in sync.</li>
+        <li><b>Logging:</b> SD card over 4-bit SDIO for post-flight analysis.</li>
+        <li><b>Graceful degradation:</b> a status bitmask records which parts came up at boot, so a failed sensor doesn't take down the rest of the flight computer.</li>
+        <li><b>Next:</b> a custom pitot tube for airspeed through the transonic regime, and moving everything onto the custom PCB.</li>
+        <li><b>Team lead:</b> I set up the repo, the pull-request workflow, and a getting-started guide that takes new members from no coding experience to flashing the board.</li>
+      </ul>
+      <div class="links"><a href="https://github.com/waltim263/DSRT_Avionics">→ Flight software repo</a></div>
+    </article>
+  </div>
+</div></section>
+
+<!-- PROJECTS -->
+<section id="projects"><div class="wrap">
+  <div class="sec-hd"><span class="n">02</span><h2>Projects</h2><p>Each one lists what I built, how I verified it, and what I'd fix next.</p></div>
+
+  <div class="filters" role="group" aria-label="Filter projects">
+    <button aria-pressed="true" data-f="all">All</button>
+    <button aria-pressed="false" data-f="fpga">FPGA / Digital</button>
+    <button aria-pressed="false" data-f="embedded">Embedded</button>
+    <button aria-pressed="false" data-f="analog">Analog</button>
+    <button aria-pressed="false" data-f="controls">Controls</button>
+    <button aria-pressed="false" data-f="dsp">DSP / ML</button>
+  </div>
+
+  <!-- TinyML -->
+  <article class="proj" data-tags="fpga dsp">
+    <div class="meta">
+      <span class="course">ENGS 128 · Advanced Digital Design</span>
+      Final project · w/ Javier Lopez
+      <div><b>Platform</b>Zybo Z7-20 (Zynq-7020)</div>
+      <div><b>Tools</b><div class="chips"><span class="chip">Vivado</span><span class="chip">Vitis HLS</span><span class="chip">VHDL</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">AXI</span></div></div>
+    </div>
+    <div>
+      <h3>TinyML word classifier with FIR filter bank and HDMI output</h3>
+      <p>This is a spoken-word classifier that runs in programmable logic. Audio from the codec comes in over I²S and is converted to a mono AXI Stream. It passes through a bank of eight band-pass FIR filters, then into a custom Vitis HLS core that computes log-energy features and runs a 400→16→3 neural network. The predicted class (silence, word 1, or word 2) sets the color of an HDMI output.</p>
+      <p>The ML side (training, FIR design, and Q16 coefficient and weight export) lives in a Jupyter notebook. Its output files are the interface between the Python model and the hardware.</p>
+      <div class="stats">
+        <div class="stat"><div class="v">8</div><div class="l">FIR Compiler bands in a custom AXIS wrapper</div></div>
+        <div class="stat"><div class="v">0</div><div class="l">bitstream errors; HDMI path verified on monitor</div></div>
+        <div class="stat"><div class="v">21%</div><div class="l">LUT utilization on xc7z020 (16 DSP48s)</div></div>
+        <div class="stat"><div class="v">7/9</div><div class="l">HLS C-sim test vectors classified correctly</div></div>
+      </div>
+      <figure data-cap="Top-level block design: audio/classifier path and HDMI path"><img src="assets/tinyml-block.jpg" alt="Vivado block design for TinyML classifier" loading="lazy"><figcaption>Vivado block design</figcaption></figure>
+      <details><summary>Engineering notes</summary><div class="body">
+        <h4>Timing analysis</h4>
+        <p>The routed design missed setup timing by −1.35 ns WNS on the 83.33 MHz fabric clock, while hold passed everywhere. I traced the critical path from the classifier's <code>best_score</code> register through argmax, the HDMI color logic, and into the debug ILA. About 88% of the delay is routing. The fixes are to drop the ILA from the release build and register <code>class_out</code> before the HDMI generator.</p>
+        <h4>Open issue: Python ↔ HLS model mismatch</h4>
+        <p>The hardware path works end to end, but the classifier only matches 7 of 9 reference vectors. The likely cause is a difference in feature scaling or quantization between the training notebook and the HLS implementation, not the RTL. Next I'd do a bit-exact comparison of each layer's outputs.</p>
+        <h4>Integration fixes</h4>
+        <ul><li>Fixed AXI Stream width mismatches caused by the FIR Compiler's 40-bit full-resolution output.</li><li>Fixed a clock-domain crossing for the class result going into the pixel clock domain.</li></ul>
+      </div></details>
+      <div class="links"><a href="https://github.com/justjavi25/tinyML_word_classifier">→ GitHub repository</a></div>
+    </div>
+  </article>
+
+  <!-- Audio DSP labs -->
+  <article class="proj" data-tags="fpga dsp">
+    <div class="meta">
+      <span class="course">ENGS 128 · Labs 1–3</span>
+      Individual
+      <div><b>Platform</b>Zybo Z7 · SSM2603 codec</div>
+      <div><b>Tools</b><div class="chips"><span class="chip">VHDL</span><span class="chip">Vivado</span><span class="chip">AXI Stream</span><span class="chip">AXI-Lite</span><span class="chip">DMA</span></div></div>
+    </div>
+    <div>
+      <h3>Real-time streaming audio DSP on Zynq</h3>
+      <p>I built a stereo audio pipeline from the codec pins up, over three labs. Each lab added one layer and verified it in simulation before moving to hardware.</p>
+      <div class="stats">
+        <div class="stat"><div class="v">12.288 MHz</div><div class="l">MCLK divided to BCLK/LRCLK in VHDL</div></div>
+        <div class="stat"><div class="v">24-bit</div><div class="l">I²S samples at 48 kHz</div></div>
+        <div class="stat"><div class="v">4</div><div class="l">selectable filters: LP, HP, BP, BS</div></div>
+      </div>
+      <details><summary>What each stage does</summary><div class="body">
+        <ul>
+          <li><b>I²S transmitter and receiver.</b> Clock dividers (including a falling-edge divider for LRCLK), ODDR clock forwarding, and a 4-state FSM that shifts left and right channel data.</li>
+          <li><b>DDS tone generator.</b> A phase-accumulator address counter steps through a sine lookup table in block RAM. It was later made programmable over AXI-Lite so the processor can set stereo test tones.</li>
+          <li><b>AXI Stream FIFO.</b> A parameterized circular buffer with read/write pointers and an occupancy counter, wrapped with TVALID/TREADY handshaking.</li>
+          <li><b>DMA recorder.</b> Streams codec audio into processor memory.</li>
+          <li><b>Selectable FIR stage.</b> Sits between two FIFOs. A switch picks DDS tones or live codec audio as the input, which made the filter responses easy to check in hardware.</li>
+          <li><b>Codec setup.</b> I²C configuration of the codec and clock-domain crossing between the audio and fabric clocks.</li>
+        </ul>
+      </div></details>
+      <div class="links"><a href="https://github.com/waltim263/engs128-lab-2">→ Lab 2 repository</a></div>
+    </div>
+  </article>
+
+  <!-- Ball balancer -->
+  <article class="proj" data-tags="fpga controls">
+    <div class="meta">
+      <span class="course">ENGS 31 · Digital Electronics</span>
+      Final project · w/ Javier Lopez
+      <div><b>Platform</b>Digilent Basys 3 (Artix-7)</div>
+      <div><b>Tools</b><div class="chips"><span class="chip">VHDL</span><span class="chip">Vivado</span><span class="chip">Logic analyzer</span><span class="chip">PID</span></div></div>
+    </div>
+    <div>
+      <h3>Ping-pong ball balancing platform with PID control in VHDL</h3>
+      <p>A tilting platform that keeps a ping-pong ball centered. Two HC-SR04 ultrasonic sensors measure the ball's X and Y position, and two independent PID controllers drive hobby servos. Everything is written in VHDL with no soft processor: a clock generator, a sensor-receiver FSM that triggers the sensors and times the echo pulses, the PID datapaths, and PWM transmitters.</p>
+      <div class="stats">
+        <div class="stat"><div class="v">400 Hz</div><div class="l">PID update rate</div></div>
+        <div class="stat"><div class="v">1 µs</div><div class="l">echo timing resolution (100 → 1 MHz clock)</div></div>
+        <div class="stat"><div class="v">20 ms</div><div class="l">servo PWM period, 1–2 ms pulse</div></div>
+        <div class="stat"><div class="v">Kᵤ=0.96</div><div class="l">Ziegler–Nichols ultimate gain, Pᵤ = 2 s</div></div>
+      </div>
+      <div class="figs">
+        <figure data-cap="Top-level RTL: clock generator, sensor receivers, PID controllers, PWM transmitters"><img src="assets/balancer-block.jpg" alt="Top-level block diagram" loading="lazy"><figcaption>Top-level RTL</figcaption></figure>
+        <figure class="dark" data-cap="Scope capture: trigger, echo and servo PWM for both axes"><img src="assets/balancer-scope.jpg" alt="Oscilloscope capture of trigger, echo and PWM" loading="lazy"><figcaption>Trigger → echo → PWM</figcaption></figure>
+      </div>
+      <details><summary>Tuning &amp; debugging</summary><div class="body">
+        <p>I found the ultimate gain on a single axis and used it to set Ziegler–Nichols starting values. After smoothing the sensor path, those gains were too aggressive, so I hand-tuned to K<sub>p</sub>=0.18, K<sub>i</sub>=0.12, K<sub>d</sub>=0.08.</p>
+        <p>The hardest bug was one that passing testbenches didn't catch. The PID output clamp only applied every other clock cycle, so when the ball left a sensor's view cone, a huge reading slipped through and pinned the servo at its limit. I fixed the clamp. The sensors still occasionally return out-of-range values, and filtering them added too much latency, so the next step is outlier rejection that adds no delay.</p>
+      </div></details>
+    </div>
+  </article>
+
+  <!-- Marble maze -->
+  <article class="proj" data-tags="embedded">
+    <div class="meta">
+      <span class="course">ENGS 28 · Embedded Systems</span>
+      Final project · team of 3
+      <div><b>Platform</b>STM32C0 (bare-metal)</div>
+      <div><b>Tools</b><div class="chips"><span class="chip">C</span><span class="chip">ADC</span><span class="chip">I²C</span><span class="chip">UART</span><span class="chip">Timers/IRQ</span><span class="chip">Steppers</span></div></div>
+    </div>
+    <div>
+      <h3>Joystick-controlled 2-axis marble maze game</h3>
+      <p>A timed marble maze game driven by two stepper motors. It is written in bare-metal C on an STM32 with register-level GPIO setup and hand-written peripheral drivers. The joystick is read on two ADC channels, and the deflection sets how many steps each axis moves. A seven-segment display over I²C (HT16K33) shows menus, a countdown, and the time remaining. A TIM14 interrupt runs the 1-second game clock, and IR sensors at the start and finish detect the marble.</p>
+      <div class="stats">
+        <div class="stat"><div class="v">4-state</div><div class="l">game FSM: ON → START → END → OFF</div></div>
+        <div class="stat"><div class="v">3</div><div class="l">difficulty levels (step delay 10/5/1 ms, 60/45/30 s)</div></div>
+        <div class="stat"><div class="v">2</div><div class="l">stepper axes via step/direction drivers</div></div>
+      </div>
+      <div class="figs">
+        <figure class="cover" data-cap="ENGS 28 marble maze platform with stepper-driven tilt axes"><img src="assets/maze.jpg" alt="Marble maze hardware" loading="lazy"><figcaption>Maze platform</figcaption></figure>
+      </div>
+      <details><summary>Firmware structure</summary><div class="body">
+        <ul>
+          <li>A nested state machine handles debounced difficulty selection on the joystick button. The user button starts a 3-2-1-GO countdown on the display.</li>
+          <li>A dead zone around the joystick's center (ADC ≈ 2000–2100) prevents drift. Deflection beyond it is mapped linearly to a step count.</li>
+          <li>The timer ISR only sets a flag, and the main loop does the work. The countdown starts when the marble leaves the start sensor, and the LEDs flash in time with it.</li>
+          <li>Reaching the finish sensor lights the green LED and running out of time lights the red one. From there you can replay or power down.</li>
+        </ul>
+      </div></details>
+    </div>
+  </article>
+
+  <!-- Duck car -->
+  <article class="proj" data-tags="controls analog">
+    <div class="meta">
+      <span class="course">ENGS 26 · Control Theory</span>
+      Final project · w/ Christian Potts
+      <div><b>Platform</b>DC-motor cart + IR distance sensor</div>
+      <div><b>Tools</b><div class="chips"><span class="chip">MATLAB</span><span class="chip">Root locus</span><span class="chip">Bode</span><span class="chip">Op-amp design</span><span class="chip">Tracker</span></div></div>
+    </div>
+    <div>
+      <h3>Closed-loop position control: system ID to analog lead compensator</h3>
+      <p>The goal was to make a motorized cart drive up to a wall and stop 7–9 cm away, quickly and with little overshoot. We identified the plant by filming the cart's step response and tracking it frame by frame, then linearized the IR distance sensor around the setpoint. From that model we designed a lead compensator with root-locus and frequency-domain methods and built it as an op-amp circuit.</p>
+      <div class="stats">
+        <div class="stat"><div class="v">33% → 2%</div><div class="l">percent overshoot, uncompensated → compensated</div></div>
+        <div class="stat"><div class="v">4.64 → 0.92 s</div><div class="l">settling time (spec &lt; 1.5 s)</div></div>
+        <div class="stat"><div class="v">68.4°</div><div class="l">phase margin (spec &gt; 30°)</div></div>
+        <div class="stat"><div class="v">9.65 V</div><div class="l">peak control effort, under the 12 V rail</div></div>
+      </div>
+      <div class="figs">
+        <figure data-cap="Step response: uncompensated vs. lead-compensated"><img src="assets/duckcar-step.jpg" alt="Step response comparison" loading="lazy"><figcaption>Step response</figcaption></figure>
+        <figure class="cover" data-cap="The duck car on the test track"><img src="assets/duckcar.jpg" alt="Duck car" loading="lazy"><figcaption>Duck car</figcaption></figure>
+        <figure class="cover" data-cap="Lead compensator built on a breadboard"><img src="assets/duckcar-board.jpg" alt="Compensator breadboard" loading="lazy"><figcaption>Compensator build</figcaption></figure>
+      </div>
+      <details><summary>The model</summary><div class="body">
+        <p>Plant: <code>G(s) = 0.338 / (0.633s + 1)</code>, a first-order motor model with τ read at 63.2% of steady-state velocity and gain from the final value theorem.</p>
+        <p>Sensor: <code>H(s) = 10.75 / s</code>, which integrates velocity to position, with the gain linearized around 7 cm.</p>
+        <p>Compensator: <code>Gc(s) = 1.58 (1 + 0.498s) / (1 + 0.068s)</code>, built with standard parts (C = 1 µF, R<sub>s</sub> = 68 kΩ, R<sub>1</sub> ≈ 430 kΩ, R<sub>2</sub> = 680 kΩ). The single-stage inverting op amp flips the sign, so we swapped the motor leads to keep the feedback negative.</p>
+        <p>The ~1.5 cm residual error comes from motor stiction and the static-to-kinetic friction transition. Those are nonlinear disturbances that a Type-1 linear loop can't fully reject.</p>
+      </div></details>
+    </div>
+  </article>
+
+  <!-- Heart monitor -->
+  <article class="proj" data-tags="analog">
+    <div class="meta">
+      <span class="course">ENGS 32 · Electronics</span>
+      Final project · w/ Javier Lopez
+      <div><b>Power</b>Single 9 V battery (±4.5 V rails)</div>
+      <div><b>Tools</b><div class="chips"><span class="chip">LTspice</span><span class="chip">Op amps</span><span class="chip">555</span><span class="chip">CMOS logic</span><span class="chip">Class-D</span></div></div>
+    </div>
+    <div>
+      <h3>Analog heart-rate monitor with class-D audio output</h3>
+      <p>The monitor takes the faint heart sound from a microphone, detects S1 (the "lub"), and outputs a 450 Hz beep and an LED flash on every beat. It plays a longer beep the first time it detects a heartbeat after being idle. There is no microcontroller. The signal chain is analog filtering, comparator pulse shaping, CMOS flip-flop logic, 555 timers, a Wien-bridge oscillator, and a class-D speaker driver. We modeled each block in LTspice before building it.</p>
+      <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat"><div class="v">10–72 Hz</div><div class="l">preamp passband, gain −10</div></div>
+        <div class="stat"><div class="v">27.9 Hz</div><div class="l">MFB band-pass center frequency</div></div>
+                <div class="stat"><div class="v">482 Hz</div><div class="l">Wien-bridge tone (2.2 kΩ, 150 nF)</div></div>
+        <div class="stat"><div class="v">165 / 363 ms</div><div class="l">555 short/long beep one-shots</div></div>
+        <div class="stat"><div class="v">3.3 s</div><div class="l">retriggerable idle detector (3 MΩ, 1 µF)</div></div>
+        <div class="stat"><div class="v">4.7 µs</div><div class="l">class-D dead time (RC delay before each comparator)</div></div>
+      </div>
+      <svg viewBox="0 0 820 150" role="img" aria-label="Heart monitor signal chain" style="width:100%;height:auto;margin:4px 0 6px;font-family:'IBM Plex Mono',monospace">
+        <defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#62758a"/></marker></defs>
+        <g font-size="11" fill="#e6edf3" text-anchor="middle">
+          <g stroke="#2a3a4c" fill="#121c27"><rect x="2" y="20" width="92" height="44" rx="6"/><rect x="118" y="20" width="96" height="44" rx="6"/><rect x="238" y="20" width="108" height="44" rx="6"/><rect x="370" y="20" width="100" height="44" rx="6"/><rect x="494" y="20" width="98" height="44" rx="6"/><rect x="616" y="20" width="98" height="44" rx="6"/><rect x="738" y="20" width="80" height="44" rx="6"/>
+          <rect x="370" y="96" width="100" height="44" rx="6"/><rect x="494" y="96" width="98" height="44" rx="6"/></g>
+          <text x="48" y="40">Mic +</text><text x="48" y="54" fill="#93a4b5">preamp ×10</text>
+          <text x="166" y="40">MFB BPF</text><text x="166" y="54" fill="#93a4b5">f₀ 27.9 Hz</text>
+          <text x="292" y="40">Edge det. +</text><text x="292" y="54" fill="#93a4b5">comparator</text>
+          <text x="420" y="40">D flip-flop</text><text x="420" y="54" fill="#93a4b5">S1 detect</text>
+          <text x="543" y="40">555 beep</text><text x="543" y="54" fill="#93a4b5">165/363 ms</text>
+          <text x="665" y="40">Wien 482 Hz</text><text x="665" y="54" fill="#93a4b5">gated tone</text>
+          <text x="778" y="40">Class-D</text><text x="778" y="54" fill="#93a4b5">8 Ω spkr</text>
+          <text x="420" y="116">555 idle</text><text x="420" y="130" fill="#93a4b5">3.3 s timer</text>
+          <text x="543" y="116">Idle flag FF</text><text x="543" y="130" fill="#93a4b5">long vs short</text>
+        </g>
+        <g stroke="#62758a" stroke-width="1.4" fill="none" marker-end="url(#ar)">
+          <path d="M94 42H116"/><path d="M214 42H236"/><path d="M346 42H368"/><path d="M470 42H492"/><path d="M592 42H614"/><path d="M714 42H736"/>
+          <path d="M420 64V94"/><path d="M470 118H492"/><path d="M543 96V66"/>
+        </g>
+      </svg>
+      <div class="figs">
+        <figure data-cap="Inverting active preamp: Av = −R15/R14 = −10, fL = 10.3 Hz, fH = 72 Hz"><img src="assets/heart-preamp.jpg" alt="Preamp schematic" loading="lazy"><figcaption>Preamp schematic</figcaption></figure>
+        <figure class="dark" data-cap="LTspice: heartbeat signal after the preamp"><img src="assets/heart-sim.jpg" alt="LTspice preamp output" loading="lazy"><figcaption>LTspice preamp output</figcaption></figure>
+        <figure data-cap="555 one-shot used to time the beep"><img src="assets/heart-555.jpg" alt="555 timer schematic" loading="lazy"><figcaption>555 beep timer</figcaption></figure>
+      </div>
+      <details><summary>Signal chain &amp; lessons</summary><div class="body">
+        <h4>From the LTspice schematic</h4>
+        <ul>
+          <li><b>Idle and long-beep logic.</b> Every detected beat retriggers a 3.3 s 555 timer, which a transistor discharges on each beat. When the timer expires, a D flip-flop latches an idle flag. AND/OR gates then send either the 363 ms "first beat" beep or the 165 ms normal beep to the oscillator gate.</li>
+          <li><b>Tone.</b> An LF411 Wien-bridge oscillator with 1N4148 diode amplitude limiting in the feedback path. A complementary BJT switch gates it on and off.</li>
+          <li><b>Class-D stage.</b> A PNP constant-current source charges a capacitor to make a linear ramp, which a comparator turns into PWM. Two LT1011 comparators, each behind a 4.7 kΩ / 1 nF delay, give break-before-make gate drive to a CMOS half-bridge. A 1 mH / 22 µF LC filter (≈1.07 kHz corner) and a DC-blocking capacitor feed the 8 Ω speaker.</li>
+          <li><b>Test stimulus.</b> A recorded heartbeat played as a PWL source, 3 s on and 5 s off, which exercises the idle → long-beep path in simulation.</li>
+        </ul>
+        <p>We verified each block against its simulation. The front end, comparator pulse shaping, beep timers, PWM carrier, and break-before-make gate drive all matched. Full integration was limited by two problems. The flip-flop sometimes clocked on the second heart-sound pulse, likely because the comparator's open-collector edges were slow. The Wien-bridge oscillator also became asymmetric right before the demo.</p>
+        <p>If I rebuilt it, I'd add Schmitt-trigger buffering on every clock input, check setup and hold margins, and plan the board layout from the start instead of adding breadboards as the design grew.</p>
+      </div></details>
+    </div>
+  </article>
+
+  <div class="minis">
+    <div class="mini" data-tags="embedded">
+      <span class="chip">CS 50 · Software Design</span>
+      <h4>Nuggets: multiplayer game server in C</h4>
+      <p>A team-built UDP game server that supports up to 26 players and a spectator collecting gold in a map of rooms. Each player's view uses line-of-sight visibility based on Bresenham's algorithm. The code is split into modules for the map, game state, players, gold piles, and message parsing, each with its own unit test.</p>
+    </div>
+    <div class="mini" data-tags="embedded">
+      <span class="chip">Personal</span>
+      <h4>'93 Honda Accord build</h4>
+      <p>An F20B engine swap with a custom wiring harness, a Bluetooth-tunable standalone ECU, and coilover suspension. I did the electrical, mechanical, and tuning work myself.</p>
+    </div>
+    <div class="mini" data-tags="embedded dsp">
+      <span class="chip">Microprocessors in Engineered Systems</span>
+      <h4>Neural-net motion classifier on STM32</h4>
+      <p>A neural network in C that classifies motion from accelerometer data. I validated it with QEMU software-in-the-loop simulation, then deployed it to STM32 for hardware-in-the-loop testing.</p>
+    </div>
+    <div class="mini" data-tags="fpga">
+      <span class="chip">ENGS 62 · Zynq HLS</span>
+      <h4>Streaming hashing accelerator in Vitis HLS</h4>
+      <p>A free-running AXI-Stream hardware block with a DMA path from the ARM core. I applied HLS directives one at a time and measured each one's effect on latency, initiation interval, and LUT/FF/BRAM cost, ending at a 2-cycle latency (the minimum with a BRAM read).</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- EXPERIENCE -->
+<section id="experience"><div class="wrap">
+  <div class="sec-hd"><span class="n">03</span><h2>Experience</h2></div>
+  <div class="xp">
+    <div class="when">Sep 2023 – Present</div>
+    <div class="what"><h3>Undergraduate Research Assistant <span>· Lynch Rocket Lab, Dartmouth</span></h3>
+      <ul><li>GNEISS sounding rocket integration at NASA Wallops: instrumentation, harness checks, vibe and spin testing</li><li>Built and tested custom data-capture PCBs</li><li>Designed and deployed a 12-node SDR telemetry network with Python-automated capture</li></ul></div>
+    <div class="when">Jun – Aug 2026</div>
+    <div class="what"><h3>Deck Hand <span>· Commercial salmon fishing, Cordova, AK</span></h3>
+      <ul><li>Diesel maintenance and mechanical troubleshooting in remote conditions</li><li>Ran the RSW refrigeration and hydraulic systems during safety-critical seine sets</li></ul></div>
+    <div class="when">Sep 2023 – Sep 2025</div>
+    <div class="what"><h3>Machine Shop Assistant <span>· Thayer School of Engineering</span></h3>
+      <ul><li>Manual and CNC milling, lathe work, laser cutting, and 3D printing; trained students and researchers on the equipment</li></ul></div>
+    <div class="when">Jun 2021 – Aug 2023</div>
+    <div class="what"><h3>Electrical Engineering Intern <span>· Cushing Terrell, Missoula, MT</span></h3>
+      <ul><li>Designed and simulated building electrical systems in Revit and AutoCAD</li></ul></div>
+  </div>
+</div></section>
+
+<!-- SKILLS -->
+<section id="skills"><div class="wrap">
+  <div class="sec-hd"><span class="n">04</span><h2>Toolbox</h2></div>
+  <div class="skills">
+    <div class="skill"><h4>Languages</h4><div class="chips"><span class="chip">C</span><span class="chip">VHDL</span><span class="chip">Python</span><span class="chip">MATLAB</span><span class="chip">Java</span><span class="chip">C++ (HLS)</span></div></div>
+    <div class="skill"><h4>Hardware &amp; platforms</h4><div class="chips"><span class="chip">STM32</span><span class="chip">Zynq / Zybo Z7</span><span class="chip">Artix-7</span><span class="chip">Raspberry Pi</span><span class="chip">SDR (RSPduo)</span><span class="chip">PCB assembly</span></div></div>
+    <div class="skill"><h4>Design tools</h4><div class="chips"><span class="chip">Vivado</span><span class="chip">Vitis HLS</span><span class="chip">KiCad</span><span class="chip">LTspice</span><span class="chip">GNU Radio</span><span class="chip">SolidWorks</span><span class="chip">Revit</span><span class="chip">AutoCAD</span></div></div>
+    <div class="skill"><h4>Test &amp; verification</h4><div class="chips"><span class="chip">HIL / SIL</span><span class="chip">QEMU</span><span class="chip">Oscilloscopes</span><span class="chip">Logic analyzers</span><span class="chip">VHDL testbenches</span><span class="chip">Vibe/spin test</span><span class="chip">Linux</span><span class="chip">Git</span></div></div>
+    <div class="skill"><h4>Fabrication</h4><div class="chips"><span class="chip">CNC / manual machining</span><span class="chip">Laser cutting</span><span class="chip">3D printing</span><span class="chip">Soldering &amp; ESD</span><span class="chip">Wire harnesses</span><span class="chip">Diesel / automotive</span></div></div>
+  </div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-bottom:0"><div class="wrap contact">
+  <div><div class="tag">Open to opportunities</div><h2>Let's build something that flies.</h2></div>
+  <div class="rows">
+    <div><span>email</span><a href="mailto:timothy.r.walters.27@dartmouth.edu">timothy.r.walters.27@dartmouth.edu</a></div>
+    <div><span>github</span><a href="https://github.com/waltim263">github.com/waltim263</a></div>
+    <div><span>linkedin</span><a href="https://www.linkedin.com/in/timothy-walters-55aa29164/">in/timothy-walters</a></div>
+    <div><span>based</span>Hanover, NH</div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© 2026 Timothy Walters · Built with plain HTML/CSS · Hosted on GitHub Pages</div></footer>
+
+<div id="lb" role="dialog" aria-modal="true"><img alt=""><p></p></div>
+
+<script>
+// filters
+const btns=document.querySelectorAll('.filters button');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('.proj,.mini').forEach(p=>{
+    const show=f==='all'||p.dataset.tags.split(' ').includes(f);
+    p.classList.toggle('hide',!show); p.style.display=show?'':'none';
+  });
+}));
+// lightbox
+const lb=document.getElementById('lb');
+document.querySelectorAll('figure').forEach(fg=>fg.addEventListener('click',()=>{
+  lb.querySelector('img').src=fg.querySelector('img').src;
+  lb.querySelector('p').textContent=fg.dataset.cap||'';
+  lb.classList.add('on');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+</script>
+</body>
+</html>
