@@ -72,10 +72,6 @@ h2{font-size:30px;font-weight:600;letter-spacing:-.01em}
 .status{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:4px;border:1px solid var(--line2);color:var(--muted);margin-left:8px;vertical-align:middle;letter-spacing:.04em}
 .status.live{color:var(--accent);border-color:rgba(255,179,71,.4)}
 
-/* filters */
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.filters button{font:500 13px var(--mono);background:transparent;color:var(--muted);border:1px solid var(--line2);border-radius:999px;padding:6px 14px;cursor:pointer}
-.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
 /* project */
 .proj{display:grid;grid-template-columns:300px 1fr;gap:32px;padding:36px 0;border-top:1px solid var(--line)}
@@ -114,8 +110,25 @@ details .body h4{color:var(--ink);font-size:14px;margin:14px 0 4px;font-weight:6
 code{font-family:var(--mono);font-size:.88em;background:var(--panel);border:1px solid var(--line);padding:1px 5px;border-radius:4px;color:var(--ink)}
 .links{margin-top:14px;font-family:var(--mono);font-size:13px;display:flex;gap:18px;flex-wrap:wrap}
 
+.cat{display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);border:1px solid rgba(90,209,196,.35);background:rgba(90,209,196,.06);padding:3px 10px;border-radius:4px;margin-bottom:12px}
+.mini .src{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-top:-4px}
+figure.overview{margin-top:18px;background:#c0c0c0}
+figure.overview img{height:auto;max-height:none}
+.blocks{margin-top:18px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);overflow:hidden}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.tabs button{text-align:left;font:500 12.5px var(--mono);color:var(--muted);background:var(--bg2);border:0;padding:10px 12px;cursor:pointer;white-space:nowrap}
+.tabs button span{color:var(--dim);margin-right:6px}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--panel);color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
+.tabs button[aria-selected="true"] span{color:var(--accent)}
+.panel{padding:18px 20px 20px}
+.panel h4{font-size:16px;margin-bottom:6px}
+.panel p{font-size:15px}
+.eqs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.panel .figs figure img{height:200px}
+
 /* small cards */
-.minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:36px}
+.minis{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
 .mini{border:1px solid var(--line);border-radius:10px;padding:22px;background:var(--bg2)}
 .mini h4{font-size:17px;margin:6px 0 8px}
 .mini p{color:var(--muted);font-size:14.5px}
@@ -153,6 +166,8 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
   .feature{grid-template-columns:1fr}
   .proj{grid-template-columns:1fr;gap:18px}
   .xp{grid-template-columns:1fr}
+  .minis{grid-template-columns:1fr}
+  .tabs{grid-template-columns:repeat(2,1fr)}
   .xp .when{padding-top:0}
   .sec-hd{flex-wrap:wrap}.sec-hd p{margin-left:0;text-align:left}
   nav ul{display:none}
@@ -237,19 +252,11 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
 
 <!-- PROJECTS -->
 <section id="projects"><div class="wrap">
-  <div class="sec-hd"><span class="n">02</span><h2>Projects</h2><p>Each one lists what I built, how I verified it, and what I'd fix next.</p></div>
+  <div class="sec-hd"><span class="n">02</span><h2>Projects</h2><p>Each project lists what I built, how I verified it, and what I'd fix next.</p></div>
 
-  <div class="filters" role="group" aria-label="Filter projects">
-    <button aria-pressed="true" data-f="all">All</button>
-    <button aria-pressed="false" data-f="fpga">FPGA / Digital</button>
-    <button aria-pressed="false" data-f="embedded">Embedded</button>
-    <button aria-pressed="false" data-f="analog">Analog</button>
-    <button aria-pressed="false" data-f="controls">Controls</button>
-    <button aria-pressed="false" data-f="dsp">DSP / ML</button>
-  </div>
 
   <!-- TinyML -->
-  <article class="proj" data-tags="fpga dsp">
+  <article class="proj">
     <div class="meta">
       <span class="course">ENGS 128 · Advanced Digital Design</span>
       Final project · w/ Javier Lopez
@@ -257,6 +264,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <div><b>Tools</b><div class="chips"><span class="chip">Vivado</span><span class="chip">Vitis HLS</span><span class="chip">VHDL</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">AXI</span></div></div>
     </div>
     <div>
+      <div class="cat">Hardware Machine Learning</div>
       <h3>TinyML word classifier with FIR filter bank and HDMI output</h3>
       <p>This is a spoken-word classifier that runs in programmable logic. Audio from the codec comes in over I²S and is converted to a mono AXI Stream. It passes through a bank of eight band-pass FIR filters, then into a custom Vitis HLS core that computes log-energy features and runs a 400→16→3 neural network. The predicted class (silence, word 1, or word 2) sets the color of an HDMI output.</p>
       <p>The ML side (training, FIR design, and Q16 coefficient and weight export) lives in a Jupyter notebook. Its output files are the interface between the Python model and the hardware.</p>
@@ -280,7 +288,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
   </article>
 
   <!-- Audio DSP labs -->
-  <article class="proj" data-tags="fpga dsp">
+  <article class="proj">
     <div class="meta">
       <span class="course">ENGS 128 · Labs 1–3</span>
       Individual
@@ -288,6 +296,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <div><b>Tools</b><div class="chips"><span class="chip">VHDL</span><span class="chip">Vivado</span><span class="chip">AXI Stream</span><span class="chip">AXI-Lite</span><span class="chip">DMA</span></div></div>
     </div>
     <div>
+      <div class="cat">FPGA Signal Processing</div>
       <h3>Real-time streaming audio DSP on Zynq</h3>
       <p>I built a stereo audio pipeline from the codec pins up, over three labs. Each lab added one layer and verified it in simulation before moving to hardware.</p>
       <div class="stats">
@@ -310,7 +319,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
   </article>
 
   <!-- Ball balancer -->
-  <article class="proj" data-tags="fpga controls">
+  <article class="proj">
     <div class="meta">
       <span class="course">ENGS 31 · Digital Electronics</span>
       Final project · w/ Javier Lopez
@@ -318,6 +327,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <div><b>Tools</b><div class="chips"><span class="chip">VHDL</span><span class="chip">Vivado</span><span class="chip">Logic analyzer</span><span class="chip">PID</span></div></div>
     </div>
     <div>
+      <div class="cat">Digital Design</div>
       <h3>Ping-pong ball balancing platform with PID control in VHDL</h3>
       <p>A tilting platform that keeps a ping-pong ball centered. Two HC-SR04 ultrasonic sensors measure the ball's X and Y position, and two independent PID controllers drive hobby servos. Everything is written in VHDL with no soft processor: a clock generator, a sensor-receiver FSM that triggers the sensors and times the echo pulses, the PID datapaths, and PWM transmitters.</p>
       <div class="stats">
@@ -338,7 +348,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
   </article>
 
   <!-- Marble maze -->
-  <article class="proj" data-tags="embedded">
+  <article class="proj">
     <div class="meta">
       <span class="course">ENGS 28 · Embedded Systems</span>
       Final project · team of 3
@@ -346,6 +356,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <div><b>Tools</b><div class="chips"><span class="chip">C</span><span class="chip">ADC</span><span class="chip">I²C</span><span class="chip">UART</span><span class="chip">Timers/IRQ</span><span class="chip">Steppers</span></div></div>
     </div>
     <div>
+      <div class="cat">Embedded Systems</div>
       <h3>Joystick-controlled 2-axis marble maze game</h3>
       <p>A timed marble maze game driven by two stepper motors. It is written in bare-metal C on an STM32 with register-level GPIO setup and hand-written peripheral drivers. The joystick is read on two ADC channels, and the deflection sets how many steps each axis moves. A seven-segment display over I²C (HT16K33) shows menus, a countdown, and the time remaining. A TIM14 interrupt runs the 1-second game clock, and IR sensors at the start and finish detect the marble.</p>
       <div class="stats">
@@ -368,7 +379,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
   </article>
 
   <!-- Duck car -->
-  <article class="proj" data-tags="controls analog">
+  <article class="proj">
     <div class="meta">
       <span class="course">ENGS 26 · Control Theory</span>
       Final project · w/ Christian Potts
@@ -376,6 +387,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <div><b>Tools</b><div class="chips"><span class="chip">MATLAB</span><span class="chip">Root locus</span><span class="chip">Bode</span><span class="chip">Op-amp design</span><span class="chip">Tracker</span></div></div>
     </div>
     <div>
+      <div class="cat">Control Systems</div>
       <h3>Closed-loop position control: system ID to analog lead compensator</h3>
       <p>The goal was to make a motorized cart drive up to a wall and stop 7–9 cm away, quickly and with little overshoot. We identified the plant by filming the cart's step response and tracking it frame by frame, then linearized the IR distance sensor around the setpoint. From that model we designed a lead compensator with root-locus and frequency-domain methods and built it as an op-amp circuit.</p>
       <div class="stats">
@@ -399,7 +411,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
   </article>
 
   <!-- Heart monitor -->
-  <article class="proj" data-tags="analog">
+  <article class="proj">
     <div class="meta">
       <span class="course">ENGS 32 · Electronics</span>
       Final project · w/ Javier Lopez
@@ -407,13 +419,14 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <div><b>Tools</b><div class="chips"><span class="chip">LTspice</span><span class="chip">Op amps</span><span class="chip">555</span><span class="chip">CMOS logic</span><span class="chip">Class-D</span></div></div>
     </div>
     <div>
+      <div class="cat">Analog Circuit Design</div>
       <h3>Analog heart-rate monitor with class-D audio output</h3>
       <p>The monitor takes the faint heart sound from a microphone, detects S1 (the "lub"), and outputs a 450 Hz beep and an LED flash on every beat. It plays a longer beep the first time it detects a heartbeat after being idle. There is no microcontroller. The signal chain is analog filtering, comparator pulse shaping, CMOS flip-flop logic, 555 timers, a Wien-bridge oscillator, and a class-D speaker driver. We modeled each block in LTspice before building it.</p>
       <div class="stats" style="grid-template-columns:repeat(3,1fr)">
         <div class="stat"><div class="v">10–72 Hz</div><div class="l">preamp passband, gain −10</div></div>
         <div class="stat"><div class="v">27.9 Hz</div><div class="l">MFB band-pass center frequency</div></div>
                 <div class="stat"><div class="v">482 Hz</div><div class="l">Wien-bridge tone (2.2 kΩ, 150 nF)</div></div>
-        <div class="stat"><div class="v">200 / 400 ms</div><div class="l">555 short/long beep one-shots (measured)</div></div>
+        <div class="stat"><div class="v">200 / 400 ms</div><div class="l">555 short/long beep one-shots (t = 1.1RC)</div></div>
         <div class="stat"><div class="v">3.3 s</div><div class="l">retriggerable idle detector (3 MΩ, 1 µF)</div></div>
         <div class="stat"><div class="v">4.7 µs</div><div class="l">class-D dead time (RC delay before each comparator)</div></div>
       </div>
@@ -437,43 +450,37 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
           <path d="M420 64V94"/><path d="M470 118H492"/><path d="M543 96V66"/>
         </g>
       </svg>
-      <div class="figs">
-        <figure data-cap="Inverting active preamp: Av = −R15/R14 = −10, fL = 10.3 Hz, fH = 72 Hz"><img src="assets/heart-preamp.jpg" alt="Preamp schematic" loading="lazy"><figcaption>Preamp schematic</figcaption></figure>
-        <figure class="dark" data-cap="LTspice: heartbeat signal after the preamp"><img src="assets/heart-sim.jpg" alt="LTspice preamp output" loading="lazy"><figcaption>LTspice preamp output</figcaption></figure>
-        <figure data-cap="555 one-shot used to time the beep"><img src="assets/heart-555.jpg" alt="555 timer schematic" loading="lazy"><figcaption>555 beep timer</figcaption></figure>
+      <figure class="overview" data-cap="Full LTspice schematic: front end along the bottom, timers and idle logic in the middle, oscillator and class-D stage at the top right"><img src="assets/heart/overview.jpg" alt="Full heart monitor LTspice schematic" loading="lazy"><figcaption>Full LTspice schematic (click to enlarge)</figcaption></figure>
+      <div class="blocks">
+        <div class="tabs" role="tablist" aria-label="Circuit blocks"><button role="tab" aria-selected="true" data-i="0"><span>1</span>Preamp</button><button role="tab" aria-selected="false" data-i="1"><span>2</span>Band-pass</button><button role="tab" aria-selected="false" data-i="2"><span>3</span>Conditioning</button><button role="tab" aria-selected="false" data-i="3"><span>4</span>S1 detector</button><button role="tab" aria-selected="false" data-i="4"><span>5</span>200 ms timer</button><button role="tab" aria-selected="false" data-i="5"><span>6</span>400 ms timer</button><button role="tab" aria-selected="false" data-i="6"><span>7</span>Idle logic</button><button role="tab" aria-selected="false" data-i="7"><span>8</span>Oscillator</button><button role="tab" aria-selected="false" data-i="8"><span>9</span>Class-D</button></div>
+        <div class="panel" role="tabpanel"><h4>Block 1: Preamp</h4><p>Inverting active filter on an LF411C. The input capacitor and resistor set the high-pass corner, and the feedback RC sets the low-pass corner. That keeps the heartbeat band and rejects DC drift and hiss.</p><div class="eqs"><code>A<sub>v</sub> = −R15/R14 = −470k/47k = −10</code><code>f<sub>L</sub> = 1/(2π·47k·0.33µ) = 10.3 Hz</code><code>f<sub>H</sub> = 1/(2π·470k·4.7n) = 72 Hz</code></div><div class="figs"><figure data-cap="Preamp schematic"><img src="assets/heart/1-sch.jpg" alt="Preamp schematic" loading="lazy"><figcaption>Schematic</figcaption></figure><figure class="dark" data-cap="LTspice: preamp output"><img src="assets/heart/1-sim.jpg" alt="LTspice: preamp output" loading="lazy"><figcaption>Simulation</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 2: Band-pass</h4><p>A multiple-feedback active band-pass filter, with values chosen in the Analog Devices filter design tool, narrows the signal to the heartbeat's main frequency content.</p><div class="eqs"><code>f<sub>0</sub> = 1/(2π√(R12·R13·C5·C6)) = 27.9 Hz</code><code>passband ≈ 10–70 Hz</code></div><div class="figs"><figure data-cap="MFB band-pass schematic"><img src="assets/heart/2-sch.jpg" alt="MFB band-pass schematic" loading="lazy"><figcaption>Schematic</figcaption></figure><figure class="dark" data-cap="LTspice: band-pass output"><img src="assets/heart/2-sim.jpg" alt="LTspice: band-pass output" loading="lazy"><figcaption>Simulation</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 3: Conditioning</h4><p>An op-amp stage and a 1N4148 diode act as an edge detector. Sharp rising edges charge C10, which then decays through R20. An LM393 comparator turns that envelope into clean pulses. R23 pulls up its open-collector output.</p><div class="eqs"><code>τ = R20·C10 = 220k·0.33µ = 72.6 ms</code><code>V<sub>th</sub> = 4.5·10k/(33k+10k) = 1.05 V</code></div><div class="figs"><figure data-cap="Edge detector and comparator schematic"><img src="assets/heart/3-sch.jpg" alt="Edge detector and comparator schematic" loading="lazy"><figcaption>Schematic</figcaption></figure><figure class="dark" data-cap="LTspice: comparator pulses"><img src="assets/heart/3-sim.jpg" alt="LTspice: comparator pulses" loading="lazy"><figcaption>Simulation</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 4: S1 detector</h4><p>Each heartbeat makes two pulses (the lub and the dub). They clock a CD40174 D flip-flop, which merges them into one square wave per beat. An RC edge detector then makes a narrow trigger pulse from the first edge.</p><div class="eqs"><code>τ = R17·C11 = 10k·0.1µ = 1.0 ms</code><code>R24 = 100k resets C11 between beats</code></div><div class="figs"><figure data-cap="Flip-flop S1 detector schematic"><img src="assets/heart/4-sch.jpg" alt="Flip-flop S1 detector schematic" loading="lazy"><figcaption>Schematic</figcaption></figure><figure class="dark" data-cap="LTspice: flip-flop output and trigger pulse"><img src="assets/heart/4-sim.jpg" alt="LTspice: flip-flop output and trigger pulse" loading="lazy"><figcaption>Simulation</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 5: 200 ms timer</h4><p>An LM555 one-shot. S1 drives a 2N3904 that pulls the active-low trigger pin down. The output sets the length of a normal beep and lights the LED for the same time.</p><div class="eqs"><code>t = 1.1·(R6+R7)·C3 = 1.1·183k·1µ = 201 ms</code></div><div class="figs"><figure data-cap="200 ms 555 monostable with LED"><img src="assets/heart/5-sch.jpg" alt="200 ms 555 monostable with LED" loading="lazy"><figcaption>Schematic</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 6: 400 ms timer</h4><p>The same one-shot with a larger timing resistance. It makes the long beep that marks the first heartbeat after an idle period.</p><div class="eqs"><code>t = 1.1·(R19+R25)·C12 = 1.1·363k·1µ = 399 ms</code></div><div class="figs"><figure data-cap="400 ms 555 monostable"><img src="assets/heart/6-sch.jpg" alt="400 ms 555 monostable" loading="lazy"><figcaption>Schematic</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 7: Idle logic</h4><p>A 555 idle timer runs about 3.3 s. A 2N3904 on its discharge pin keeps it from timing out while beats are still arriving. An LM393 cleans up S1 to clock a CD40174 that latches an idle flag. CD4011 NAND gates act as ANDs to pick Q·400ms or Q̄·200ms, and a diode OR merges the two paths into the beep-control signal.</p><div class="eqs"><code>t<sub>idle</sub> = 1.1·3MΩ·1µ = 3.3 s</code></div><div class="figs"><figure data-cap="3 s idle timer, comparator and idle-flag flip-flop"><img src="assets/heart/7-sch.jpg" alt="3 s idle timer, comparator and idle-flag flip-flop" loading="lazy"><figcaption>Idle timer</figcaption></figure><figure data-cap="Beep selection logic"><img src="assets/heart/7-logic.jpg" alt="Beep selection logic" loading="lazy"><figcaption>Selection logic</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 8: Oscillator</h4><p>An LF411C Wien-bridge oscillator. 1N4148 diodes in the feedback path limit its amplitude. A complementary 2N3906/2N3904 switch passes the tone only while the beep-control signal is high.</p><div class="eqs"><code>f = 1/(2π·R·C) = 1/(2π·2.2k·150n) = 482 Hz (450 Hz target)</code></div><div class="figs"><figure data-cap="Wien-bridge oscillator and beep gate"><img src="assets/heart/8-sch.jpg" alt="Wien-bridge oscillator and beep gate" loading="lazy"><figcaption>Schematic</figcaption></figure><figure class="dark" data-cap="LTspice: gated tone bursts"><img src="assets/heart/8-sim.jpg" alt="LTspice: gated tone bursts" loading="lazy"><figcaption>Simulation</figcaption></figure></div></div><div class="panel" role="tabpanel" hidden><h4>Block 9: Class-D</h4><p><b>Carrier:</b> a 555 with a PNP current source charging its timing capacitor makes a linear sawtooth. <b>Offset:</b> an op-amp summer shifts the tone onto the sawtooth's DC level (2.25 V reference). <b>PWM:</b> an LM393 compares the two signals. <b>Dead time:</b> each gate path gets a 4.7 kΩ / 1 nF delay and an LM393 to clean it up, then CD4069 inverters drive the PMOS/NMOS half-bridge so the two MOSFETs are never on at once. <b>Output:</b> an LC low-pass filter and a DC-blocking capacitor feed the 8 Ω speaker.</p><div class="eqs"><code>τ<sub>dead</sub> = 4.7k·1n = 4.7 µs</code><code>f<sub>c</sub> = 1/(2π√(1mH·22µF)) = 1.07 kHz</code></div><div class="figs"><figure data-cap="555 sawtooth generator with PNP current source"><img src="assets/heart/9-saw.jpg" alt="555 sawtooth generator with PNP current source" loading="lazy"><figcaption>Sawtooth gen</figcaption></figure><figure class="dark" data-cap="LTspice: sawtooth carrier"><img src="assets/heart/9-sawsim.jpg" alt="LTspice: sawtooth carrier" loading="lazy"><figcaption>Carrier sim</figcaption></figure><figure data-cap="Audio offset stage"><img src="assets/heart/9-offset.jpg" alt="Audio offset stage" loading="lazy"><figcaption>Level shift</figcaption></figure><figure data-cap="PWM comparator"><img src="assets/heart/9-cmp.jpg" alt="PWM comparator" loading="lazy"><figcaption>PWM comparator</figcaption></figure><figure data-cap="Break-before-make and MOSFET half-bridge"><img src="assets/heart/9-bbm.jpg" alt="Break-before-make and MOSFET half-bridge" loading="lazy"><figcaption>Break-before-make</figcaption></figure><figure data-cap="LC output filter and speaker"><img src="assets/heart/9-filter.jpg" alt="LC output filter and speaker" loading="lazy"><figcaption>Output filter</figcaption></figure></div></div>
       </div>
-      <details><summary>Signal chain &amp; lessons</summary><div class="body">
-        <h4>From the LTspice schematic</h4>
-        <ul>
-          <li><b>Idle and long-beep logic.</b> Every detected beat retriggers a 3.3 s 555 timer, which a transistor discharges on each beat. When the timer expires, a D flip-flop latches an idle flag. AND/OR gates then send either the 400 ms "first beat" beep or the 200 ms normal beep to the oscillator gate.</li>
-          <li><b>Tone.</b> An LF411 Wien-bridge oscillator with 1N4148 diode amplitude limiting in the feedback path. A complementary BJT switch gates it on and off.</li>
-          <li><b>Class-D stage.</b> A PNP constant-current source charges a capacitor to make a linear ramp, which a comparator turns into PWM. Two LT1011 comparators, each behind a 4.7 kΩ / 1 nF delay, give break-before-make gate drive to a CMOS half-bridge. A 1 mH / 22 µF LC filter (≈1.07 kHz corner) and a DC-blocking capacitor feed the 8 Ω speaker.</li>
-          <li><b>Test stimulus.</b> A recorded heartbeat played as a PWL source, 3 s on and 5 s off, which exercises the idle → long-beep path in simulation.</li>
-        </ul>
-        <p>We verified each block against its simulation. The front end, comparator pulse shaping, beep timers, PWM carrier, and break-before-make gate drive all matched. Full integration was limited by two problems. The flip-flop sometimes clocked on the second heart-sound pulse, likely because the comparator's open-collector edges were slow. The Wien-bridge oscillator also became asymmetric right before the demo.</p>
+      <details><summary>Results &amp; lessons</summary><div class="body">
+        <p>We built and tested the circuit one block at a time against its LTspice model. The preamp, band-pass, comparator pulse shaping, 200/400 ms timers, sawtooth carrier, and break-before-make gate drive all matched simulation. A recorded heartbeat played into the simulation (3 s on, 5 s off) exercised the idle → long-beep path end to end.</p>
+        <p>Full integration was limited by two problems. The S1 flip-flop sometimes clocked on the second heart-sound pulse, likely because the open-collector comparator edges were slow. The Wien-bridge oscillator also became asymmetric right before the demo.</p>
         <p>If I rebuilt it, I'd add Schmitt-trigger buffering on every clock input, check setup and hold margins, and plan the board layout from the start instead of adding breadboards as the design grew.</p>
       </div></details>
     </div>
   </article>
 
   <div class="minis">
-    <div class="mini" data-tags="embedded">
-      <span class="chip">CS 50 · Software Design</span>
+    <div class="mini">
+      <div class="cat">Software</div><span class="src">CS 50</span>
       <h4>Nuggets: multiplayer game server in C</h4>
       <p>A team-built UDP game server that supports up to 26 players and a spectator collecting gold in a map of rooms. Each player's view uses line-of-sight visibility based on Bresenham's algorithm. The code is split into modules for the map, game state, players, gold piles, and message parsing, each with its own unit test.</p>
     </div>
-    <div class="mini" data-tags="embedded">
-      <span class="chip">Personal</span>
+    <div class="mini">
+      <div class="cat">Automotive</div><span class="src">Personal</span>
       <h4>'93 Honda Accord build</h4>
       <p>An F20B engine swap with a custom wiring harness, a Bluetooth-tunable standalone ECU, and coilover suspension. I did the electrical, mechanical, and tuning work myself.</p>
     </div>
-    <div class="mini" data-tags="embedded dsp">
-      <span class="chip">Microprocessors in Engineered Systems</span>
+    <div class="mini">
+      <div class="cat">Embedded Machine Learning</div><span class="src">Microprocessors in Engineered Systems</span>
       <h4>Neural-net motion classifier on STM32</h4>
       <p>A neural network in C that classifies motion from accelerometer data. I validated it with QEMU software-in-the-loop simulation, then deployed it to STM32 for hardware-in-the-loop testing.</p>
     </div>
-    <div class="mini" data-tags="fpga">
-      <span class="chip">ENGS 62 · Zynq HLS</span>
+    <div class="mini">
+      <div class="cat">High-Level Synthesis</div><span class="src">ENGS 62</span>
       <h4>Streaming hashing accelerator in Vitis HLS</h4>
       <p>A free-running AXI-Stream hardware block with a DMA path from the ARM core. I applied HLS directives one at a time and measured each one's effect on latency, initiation interval, and LUT/FF/BRAM cost, ending at a 2-cycle latency (the minimum with a BRAM read).</p>
     </div>
@@ -527,16 +534,14 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
 <div id="lb" role="dialog" aria-modal="true"><img alt=""><p></p></div>
 
 <script>
-// filters
-const btns=document.querySelectorAll('.filters button');
-btns.forEach(b=>b.addEventListener('click',()=>{
-  btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
-  const f=b.dataset.f;
-  document.querySelectorAll('.proj,.mini').forEach(p=>{
-    const show=f==='all'||p.dataset.tags.split(' ').includes(f);
-    p.classList.toggle('hide',!show); p.style.display=show?'':'none';
-  });
-}));
+// circuit block tabs
+document.querySelectorAll('.blocks').forEach(bl=>{
+  const tabs=bl.querySelectorAll('[role=tab]'), panels=bl.querySelectorAll('[role=tabpanel]');
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.setAttribute('aria-selected',x===t));
+    panels.forEach((p,i)=>p.hidden=i!=t.dataset.i);
+  }));
+});
 // lightbox
 const lb=document.getElementById('lb');
 document.querySelectorAll('figure').forEach(fg=>fg.addEventListener('click',()=>{
