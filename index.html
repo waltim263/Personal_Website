@@ -413,7 +413,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
         <div class="stat"><div class="v">10–72 Hz</div><div class="l">preamp passband, gain −10</div></div>
         <div class="stat"><div class="v">27.9 Hz</div><div class="l">MFB band-pass center frequency</div></div>
                 <div class="stat"><div class="v">482 Hz</div><div class="l">Wien-bridge tone (2.2 kΩ, 150 nF)</div></div>
-        <div class="stat"><div class="v">165 / 363 ms</div><div class="l">555 short/long beep one-shots</div></div>
+        <div class="stat"><div class="v">200 / 400 ms</div><div class="l">555 short/long beep one-shots (measured)</div></div>
         <div class="stat"><div class="v">3.3 s</div><div class="l">retriggerable idle detector (3 MΩ, 1 µF)</div></div>
         <div class="stat"><div class="v">4.7 µs</div><div class="l">class-D dead time (RC delay before each comparator)</div></div>
       </div>
@@ -426,7 +426,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
           <text x="166" y="40">MFB BPF</text><text x="166" y="54" fill="#93a4b5">f₀ 27.9 Hz</text>
           <text x="292" y="40">Edge det. +</text><text x="292" y="54" fill="#93a4b5">comparator</text>
           <text x="420" y="40">D flip-flop</text><text x="420" y="54" fill="#93a4b5">S1 detect</text>
-          <text x="543" y="40">555 beep</text><text x="543" y="54" fill="#93a4b5">165/363 ms</text>
+          <text x="543" y="40">555 beep</text><text x="543" y="54" fill="#93a4b5">200/400 ms</text>
           <text x="665" y="40">Wien 482 Hz</text><text x="665" y="54" fill="#93a4b5">gated tone</text>
           <text x="778" y="40">Class-D</text><text x="778" y="54" fill="#93a4b5">8 Ω spkr</text>
           <text x="420" y="116">555 idle</text><text x="420" y="130" fill="#93a4b5">3.3 s timer</text>
@@ -445,7 +445,7 @@ footer{padding:28px 0;color:var(--dim);font-family:var(--mono);font-size:12px}
       <details><summary>Signal chain &amp; lessons</summary><div class="body">
         <h4>From the LTspice schematic</h4>
         <ul>
-          <li><b>Idle and long-beep logic.</b> Every detected beat retriggers a 3.3 s 555 timer, which a transistor discharges on each beat. When the timer expires, a D flip-flop latches an idle flag. AND/OR gates then send either the 363 ms "first beat" beep or the 165 ms normal beep to the oscillator gate.</li>
+          <li><b>Idle and long-beep logic.</b> Every detected beat retriggers a 3.3 s 555 timer, which a transistor discharges on each beat. When the timer expires, a D flip-flop latches an idle flag. AND/OR gates then send either the 400 ms "first beat" beep or the 200 ms normal beep to the oscillator gate.</li>
           <li><b>Tone.</b> An LF411 Wien-bridge oscillator with 1N4148 diode amplitude limiting in the feedback path. A complementary BJT switch gates it on and off.</li>
           <li><b>Class-D stage.</b> A PNP constant-current source charges a capacitor to make a linear ramp, which a comparator turns into PWM. Two LT1011 comparators, each behind a 4.7 kΩ / 1 nF delay, give break-before-make gate drive to a CMOS half-bridge. A 1 mH / 22 µF LC filter (≈1.07 kHz corner) and a DC-blocking capacitor feed the 8 Ω speaker.</li>
           <li><b>Test stimulus.</b> A recorded heartbeat played as a PWL source, 3 s on and 5 s off, which exercises the idle → long-beep path in simulation.</li>
